@@ -1,0 +1,48 @@
+{
+  "name": "",
+  "author": "Yuma-Satake",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/main.tsx",
+  "engines": {
+    "node": "18.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/.git"
+  },
+  "scripts": {
+    "dev": "vite --mode dev --host",
+    "build": "pnpm build:dev",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:analyze": "tsc && vite build --mode dev",
+    "lint": "biome lint --write ./ && tsc --noEmit",
+    "format": "biome format --write ./",
+    "check": "pnpm biome check --write ./ && tsc --noEmit",
+    "init-setup": "pnpm install && node init-setup.js && rm init-setup.js && git add .",
+    "prepare": "pnpm dlx husky install"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.3.1",
+    "@mui/material": "^6.3.1",
+    "@tanstack/react-query": "^5.64.0",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "axios": "^1.7.9",
+    "inquirer": "^12.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.1.1",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.3",
+    "dotenv": "^16.4.7",
+    "husky": "^9.1.7",
+    "typescript": "^5.7.3"
+  }
+}
