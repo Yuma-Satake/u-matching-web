@@ -37,6 +37,10 @@ export const IndexPage: FC<Props> = ({ user }) => {
     })();
   }, []);
 
+  useEffect(() => {
+    if (!user) router('/auth');
+  }, [user]);
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
