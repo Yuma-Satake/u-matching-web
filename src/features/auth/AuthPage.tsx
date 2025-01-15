@@ -163,8 +163,6 @@ export const AuthPage: FC<Props> = ({ setUser }) => {
                   .select('mail')
                   .eq('id', selectedUserId);
 
-                console.log(fetchMail.data);
-
                 if (fetchMail.data && fetchMail.data[0].mail && fetchMail.data[0].mail !== mail) {
                   alert('初回に使用したメールアドレスを入力してください');
                   return;

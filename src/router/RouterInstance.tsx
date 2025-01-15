@@ -22,7 +22,9 @@ export const RouterInstance: FC = () => {
     const userId = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}USER_ID`);
 
     (async () => {
-      const res = await supabaseClient.from('users').select('*').eq('id', userId!);
+      if (!userId) return;
+
+      const res = await supabaseClient.from('users').select('*').eq('id', userId);
       if (!res.data) return;
 
       const user = res.data[0];
@@ -38,9 +40,13 @@ export const RouterInstance: FC = () => {
   const routeArray: RouteItemType[] = [
     {
       path: '/',
-      element: user && (
+      element: user ? (
         <AuthLayout>
           <IndexPage user={user} />
+        </AuthLayout>
+      ) : (
+        <AuthLayout>
+          <div />
         </AuthLayout>
       ),
     },
