@@ -10,19 +10,17 @@ import {
   Avatar,
   Box,
   Button,
-  CircularProgress,
   IconButton,
   MenuItem,
   Modal,
   Select,
-  Snackbar,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import { FC, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-import { Profile, User, UserWithIcon } from '@/types/supabase';
+import { useNavigate } from 'react-router';
+import { Profile, UserWithIcon } from '@/types/supabase';
 import { supabaseClient } from '@/lib/supabaseClient';
 
 type Props = {

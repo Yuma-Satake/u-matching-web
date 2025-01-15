@@ -1,22 +1,9 @@
-import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { HeaderLayout } from '@/components/layout/HeaderLayout';
-import { LOCAL_STORAGE_PREFIX } from '@/lib/const';
-import {
-  Avatar,
-  Button,
-  MenuItem,
-  Modal,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Avatar, Button, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-import { Profile, User, UserWithIcon } from '@/types/supabase';
+import { Profile, UserWithIcon } from '@/types/supabase';
 import { supabaseClient } from '@/lib/supabaseClient';
 
 // type Props = {};

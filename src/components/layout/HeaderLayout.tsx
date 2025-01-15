@@ -1,6 +1,6 @@
 import HomeIcon from '@mui/icons-material/Home';
 import FaceIcon from '@mui/icons-material/Face';
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 

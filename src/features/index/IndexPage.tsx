@@ -1,10 +1,8 @@
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { HeaderLayout } from '@/components/layout/HeaderLayout';
-import { LOCAL_STORAGE_PREFIX } from '@/lib/const';
 import { Avatar, Button, Paper, Stack, Typography } from '@mui/material';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { User, UserWithIcon } from '@/types/supabase';
+import { UserWithIcon } from '@/types/supabase';
 import TinderCard from 'react-tinder-card';
 import { supabaseClient } from '@/lib/supabaseClient';
 
