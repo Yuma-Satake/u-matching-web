@@ -230,7 +230,7 @@ export const ProfilePage: FC<Props> = ({ user }) => {
           >
             <Typography sx={{ fontWeight: 'bold' }}>写真</Typography>
           </Stack>
-          {profilePhotos.length > 0 && <Box height={'200px'} />}
+          <Box height={'200px'} />
           <Stack
             sx={{
               width: '95dvw',
