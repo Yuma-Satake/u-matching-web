@@ -1,3 +1,4 @@
+import EditIcon from '@mui/icons-material/Edit';
 import TrashIcon from '@mui/icons-material/Delete';
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
@@ -24,10 +25,11 @@ import { Profile, UserWithIcon } from '@/types/supabase';
 import { supabaseClient } from '@/lib/supabaseClient';
 
 type Props = {
+  setUser: (user: UserWithIcon) => void;
   user: UserWithIcon;
 };
 
-export const ProfilePage: FC<Props> = ({ user }) => {
+export const ProfilePage: FC<Props> = ({ setUser, user }) => {
   const router = useNavigate();
   const [isCheckLogOut, setIsCheckLogOut] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -36,6 +38,7 @@ export const ProfilePage: FC<Props> = ({ user }) => {
   const [dialogTarget, setDialogTarget] = useState<string>('');
   const [dialogInput, setDialogInput] = useState('');
   const [profilePhotos, setProfilePhotos] = useState<string[]>([]);
+  const [isEditIcon, setIsEditIcon] = useState(false);
 
   useEffect(() => {
     const userId = user.id;
@@ -80,6 +83,26 @@ export const ProfilePage: FC<Props> = ({ user }) => {
   };
 
   const ref = useRef(null);
+
+  const uploadIcon = async (inputIcon: File) => {
+    const { data } = await supabaseClient.storage
+      .from('photos')
+      .upload(`profile/${user.id}/${Math.random()}`, inputIcon);
+    if (!data) return;
+
+    const url = supabaseClient.storage.from('photos').getPublicUrl(data.path).data.publicUrl;
+
+    await supabaseClient.from('photos').insert({ img_url: url });
+    const iconImgIdData = await supabaseClient.from('photos').select('id').eq('img_url', url);
+    if (!iconImgIdData.data) return;
+
+    const id = iconImgIdData.data[0].id;
+    await supabaseClient.from('users').update({ icon_img_id: id }).eq('id', user.id);
+
+    setUser({ ...editUser, icon: url });
+    setEditUser({ ...editUser, icon: url });
+    setIsEditIcon(false);
+  };
 
   const uploadPhotos = async (inputPhotos: File[] = []) => {
     const photoPaths = await Promise.all(
@@ -206,12 +229,18 @@ export const ProfilePage: FC<Props> = ({ user }) => {
         accept="image/*"
         onChange={async (e) => {
           if (!e.target.files) return;
+          if (isEditIcon) {
+            await uploadIcon(e.target.files[0]);
+            return;
+          }
           await uploadPhotos(Array.from(e.target.files));
         }}
       />
       <HeaderLayout withHome label="プロフィール">
         <Stack sx={{ pt: 1, pb: 3 }} spacing={1}>
           <Stack
+            justifyContent="center"
+            alignItems="center"
             sx={{
               width: '100%',
               p: 3,
@@ -220,7 +249,30 @@ export const ProfilePage: FC<Props> = ({ user }) => {
               background: `linear-gradient(to top right, rgba(217, 175, 217, 0.7) 0%, rgba(151, 217, 225, 0.7) 100%),url(${user.icon})`,
             }}
           >
-            <Avatar src={user.icon} sx={{ width: '65px', height: '65px', margin: 'auto' }} />
+            <Avatar src={user.icon} sx={{ width: '65px', height: '65px' }} />
+            <IconButton
+              sx={{
+                position: 'absolute',
+                transform: 'translate(30px, 20px)',
+                bgcolor: 'white',
+                '&:hover': {
+                  bgcolor: 'white',
+                },
+              }}
+              onClick={() => {
+                setIsEditIcon(true);
+                if (!ref.current) return;
+                // @ts-ignore
+                ref.current?.click();
+              }}
+            >
+              <EditIcon
+                sx={{
+                  width: '15px',
+                  height: '15px',
+                }}
+              />
+            </IconButton>
           </Stack>
           <Stack
             sx={{ pt: 1, pb: 1.5, width: '100%' }}
