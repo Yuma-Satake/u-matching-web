@@ -58,7 +58,7 @@ export const RouterInstance: FC = () => {
       path: '/profile',
       element: user && (
         <AuthLayout>
-          <ProfilePage user={user} />
+          <ProfilePage user={user} setUser={setUser} />
         </AuthLayout>
       ),
     },

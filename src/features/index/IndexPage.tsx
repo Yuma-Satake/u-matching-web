@@ -33,7 +33,10 @@ export const IndexPage: FC<Props> = ({ user }) => {
           const icon = photos.find((photo) => photo.id === user.icon_img_id);
           return { ...user, icon: icon?.img_url ?? '' };
         });
-      setUsers([...usersWithIcon, ...usersWithIcon, ...usersWithIcon, ...usersWithIcon]);
+
+      const setArray = [...usersWithIcon, ...usersWithIcon, ...usersWithIcon, ...usersWithIcon];
+      const shuffleArray = [...setArray].sort(() => Math.random() - 0.5);
+      setUsers(shuffleArray);
     })();
   }, []);
 
