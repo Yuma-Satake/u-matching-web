@@ -607,7 +607,6 @@ export const ProfilePage: FC<Props> = ({ setUser, user }) => {
                 return;
               }
 
-              localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}MAIL`);
               localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}USER_ID`);
               router('/auth');
             }}

@@ -16,7 +16,7 @@ export const AuthPage: FC<Props> = ({ setUser }) => {
 
   const [users, setUsers] = useState<(User & { icon?: string })[]>([]);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [mail, setMail] = useState('');
+  const [mail, setMail] = useState(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}MAIL`) ?? '');
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   useEffect(() => {
